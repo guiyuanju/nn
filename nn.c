@@ -49,14 +49,19 @@ int main(void) {
   nn_rand(nn, 0, 1);
 
   float eps = 1e-1;
-  float rate = 1e-1;
+  float rate = 1;
 
   printf("cost = %f\n", nn_cost(nn, ti, to));
-  for (size_t i = 0; i < 100000; i++) {
-    nn_finite_diff(nn, g, eps, ti, to);
-    nn_learn(nn, g, rate);
-    printf("cost = %f\n", nn_cost(nn, ti, to));
+  for (size_t i = 0; i < 5000; i++) {
+#if 1
+	nn_finite_diff(nn, g, eps, ti, to);
+#else
+	nn_backprop(nn, g, ti, to);
+#endif
+	nn_learn(nn, g, rate);
+	printf("cost = %f\n", nn_cost(nn, ti, to));
   }
+  printf("cost = %f\n", nn_cost(nn, ti, to));
 
   // NN_PRINT(nn);
 
