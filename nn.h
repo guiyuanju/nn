@@ -299,8 +299,8 @@ void nn_backprop(NN nn, NN g, Mat ti, Mat to) {
 		for (size_t k = 0; k < nn.as[l-1].cols; k++) {
 		  float pa = MAT_AT(nn.as[l-1], 0, k);
 		  float w = MAT_AT(nn.ws[l-1], k, j);
-		  MAT_AT(g.ws[l-1], k, j) += 2*da*a*(1-a)*pa;
-		  MAT_AT(g.as[l-1], 0 ,k) += 2*da*a*(1-a)*w;
+		  MAT_AT(g.ws[l-1], k, j) += da*a*(1-a)*pa;
+		  MAT_AT(g.as[l-1], 0 ,k) += da*a*(1-a)*w;
 		}
 	  }
 	}
